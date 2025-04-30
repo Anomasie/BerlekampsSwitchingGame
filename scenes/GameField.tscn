@@ -6,5 +6,6 @@
 [node name="GameField" type="GridContainer"]
 offset_right = 40.0
 offset_bottom = 40.0
+columns = 10
 script = ExtResource("1_kvohj")
 LampButton = ExtResource("2_nn5x5")

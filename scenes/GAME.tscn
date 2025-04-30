@@ -1,9 +1,18 @@
-[gd_scene load_steps=5 format=3 uid="uid://cdjxr581slet0"]
+[gd_scene load_steps=8 format=3 uid="uid://cdjxr581slet0"]
 
 [ext_resource type="PackedScene" uid="uid://dbm7mpbjw1xb8" path="res://scenes/GameField.tscn" id="1_7ytnu"]
 [ext_resource type="Script" path="res://scenes/GAME.gd" id="1_ocxpb"]
 [ext_resource type="PackedScene" uid="uid://cgju6l8fd13oc" path="res://scenes/buttons/BigSwitch.tscn" id="2_j1tic"]
 [ext_resource type="Texture2D" uid="uid://wuqcc4sxkpte" path="res://assets/Theme/Panels.png" id="3_k43ql"]
+[ext_resource type="Texture2D" uid="uid://d2s15sb05fjvi" path="res://assets/Lamps.png" id="5_jyrtt"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0qwvu"]
+atlas = ExtResource("5_jyrtt")
+region = Rect2(48, 0, 16, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_grpnn"]
+atlas = ExtResource("5_jyrtt")
+region = Rect2(48, 20, 16, 20)
 
 [node name="GAME" type="Control"]
 layout_mode = 3
@@ -58,10 +67,146 @@ columns = 2
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-columns = 10
 
 [node name="Columns" type="VBoxContainer" parent="Screen/Game/Margin/Grid"]
 layout_mode = 2
 
 [node name="Lines" type="HBoxContainer" parent="Screen/Game/Margin/Grid"]
 layout_mode = 2
+
+[node name="CurrentGame" type="VBoxContainer" parent="Screen"]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="Score" type="MarginContainer" parent="Screen/CurrentGame"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+
+[node name="Background" type="NinePatchRect" parent="Screen/CurrentGame/Score"]
+layout_mode = 2
+texture = ExtResource("3_k43ql")
+region_rect = Rect2(0, 0, 16, 16)
+patch_margin_left = 3
+patch_margin_top = 3
+patch_margin_right = 3
+patch_margin_bottom = 3
+
+[node name="Margin" type="MarginContainer" parent="Screen/CurrentGame/Score"]
+layout_mode = 2
+
+[node name="Grid" type="GridContainer" parent="Screen/CurrentGame/Score/Margin"]
+layout_mode = 2
+columns = 2
+
+[node name="Left" type="TextureRect" parent="Screen/CurrentGame/Score/Margin/Grid"]
+custom_minimum_size = Vector2(48, 60)
+layout_mode = 2
+texture = SubResource("AtlasTexture_0qwvu")
+
+[node name="Right" type="TextureRect" parent="Screen/CurrentGame/Score/Margin/Grid"]
+custom_minimum_size = Vector2(48, 60)
+layout_mode = 2
+texture = SubResource("AtlasTexture_grpnn")
+
+[node name="LeftLabel" type="Label" parent="Screen/CurrentGame/Score/Margin/Grid"]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 3
+text = "0"
+
+[node name="RightLabel" type="Label" parent="Screen/CurrentGame/Score/Margin/Grid"]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 3
+text = "0"
+
+[node name="Rules" type="MarginContainer" parent="Screen/CurrentGame"]
+layout_mode = 2
+size_flags_vertical = 10
+
+[node name="Background" type="NinePatchRect" parent="Screen/CurrentGame/Rules"]
+layout_mode = 2
+texture = ExtResource("3_k43ql")
+region_rect = Rect2(0, 0, 16, 16)
+patch_margin_left = 3
+patch_margin_top = 3
+patch_margin_right = 3
+patch_margin_bottom = 3
+
+[node name="Margin" type="MarginContainer" parent="Screen/CurrentGame/Rules"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Screen/CurrentGame/Rules/Margin"]
+custom_minimum_size = Vector2(1, 1)
+layout_mode = 2
+size_flags_vertical = 0
+text = "Here are the rules. 
+They are not very long. At least I hope so."
+autowrap_mode = 2
+
+[node name="NewGame" type="VBoxContainer" parent="Screen"]
+layout_mode = 2
+size_flags_horizontal = 8
+
+[node name="MainMenu" type="MarginContainer" parent="Screen/NewGame"]
+layout_mode = 2
+size_flags_vertical = 10
+
+[node name="Background" type="NinePatchRect" parent="Screen/NewGame/MainMenu"]
+layout_mode = 2
+texture = ExtResource("3_k43ql")
+region_rect = Rect2(0, 0, 16, 16)
+patch_margin_left = 3
+patch_margin_top = 3
+patch_margin_right = 3
+patch_margin_bottom = 3
+
+[node name="Margin" type="MarginContainer" parent="Screen/NewGame/MainMenu"]
+layout_mode = 2
+
+[node name="Lines" type="VBoxContainer" parent="Screen/NewGame/MainMenu/Margin"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Screen/NewGame/MainMenu/Margin/Lines"]
+layout_mode = 2
+text = "New games:"
+
+[node name="FirstPlayer" type="Button" parent="Screen/NewGame/MainMenu/Margin/Lines"]
+layout_mode = 2
+text = "1st Player"
+
+[node name="SecondPlayer" type="Button" parent="Screen/NewGame/MainMenu/Margin/Lines"]
+layout_mode = 2
+text = "2nd Player"
+
+[node name="Lines" type="VBoxContainer" parent="Screen/NewGame/MainMenu/Margin/Lines"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Screen/NewGame/MainMenu/Margin/Lines/Lines"]
+layout_mode = 2
+text = "Field size
+next game:"
+
+[node name="XEdit" type="SpinBox" parent="Screen/NewGame/MainMenu/Margin/Lines/Lines"]
+layout_mode = 2
+min_value = 1.0
+max_value = 20.0
+value = 10.0
+
+[node name="YEdit" type="SpinBox" parent="Screen/NewGame/MainMenu/Margin/Lines/Lines"]
+layout_mode = 2
+min_value = 1.0
+max_value = 20.0
+value = 10.0
+
+[node name="SubmitButton" type="Button" parent="Screen"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+text = "Ready"
+
+[connection signal="changed" from="Screen/Game/Margin/Grid/GameField" to="." method="_on_game_field_changed"]
+[connection signal="pressed" from="Screen/NewGame/MainMenu/Margin/Lines/FirstPlayer" to="." method="_on_first_player_pressed"]
+[connection signal="pressed" from="Screen/NewGame/MainMenu/Margin/Lines/SecondPlayer" to="." method="_on_second_player_pressed"]
+[connection signal="pressed" from="Screen/SubmitButton" to="." method="_on_submit_button_pressed"]
