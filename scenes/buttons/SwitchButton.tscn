@@ -1,0 +1,80 @@
+[gd_scene load_steps=13 format=3 uid="uid://duebklrl317w2"]
+
+[ext_resource type="Script" path="res://scenes/buttons/SwitchButton.gd" id="1_5o6jp"]
+[ext_resource type="Texture2D" uid="uid://d2s15sb05fjvi" path="res://assets/Lamps.png" id="1_y6bxk"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8gx23"]
+atlas = ExtResource("1_y6bxk")
+region = Rect2(0, 0, 16, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pfxoo"]
+atlas = ExtResource("1_y6bxk")
+region = Rect2(0, 20, 16, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7s6eu"]
+atlas = ExtResource("1_y6bxk")
+region = Rect2(0, 20, 16, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q3rqb"]
+atlas = ExtResource("1_y6bxk")
+region = Rect2(32, 20, 16, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x4tn0"]
+atlas = ExtResource("1_y6bxk")
+region = Rect2(16, 20, 16, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wwj02"]
+atlas = ExtResource("1_y6bxk")
+region = Rect2(48, 20, 16, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vrvn4"]
+atlas = ExtResource("1_y6bxk")
+region = Rect2(0, 0, 16, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tf45q"]
+atlas = ExtResource("1_y6bxk")
+region = Rect2(32, 0, 16, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bkcfa"]
+atlas = ExtResource("1_y6bxk")
+region = Rect2(16, 0, 16, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8245r"]
+atlas = ExtResource("1_y6bxk")
+region = Rect2(48, 0, 16, 20)
+
+[node name="SwitchButton" type="MarginContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 0
+theme_override_constants/margin_bottom = 0
+script = ExtResource("1_5o6jp")
+tex_on = SubResource("AtlasTexture_8gx23")
+tex_off = SubResource("AtlasTexture_pfxoo")
+
+[node name="On" type="TextureButton" parent="."]
+layout_mode = 2
+texture_normal = SubResource("AtlasTexture_7s6eu")
+texture_pressed = SubResource("AtlasTexture_q3rqb")
+texture_hover = SubResource("AtlasTexture_x4tn0")
+texture_disabled = SubResource("AtlasTexture_wwj02")
+stretch_mode = 0
+
+[node name="Off" type="TextureButton" parent="."]
+visible = false
+layout_mode = 2
+texture_normal = SubResource("AtlasTexture_vrvn4")
+texture_pressed = SubResource("AtlasTexture_tf45q")
+texture_hover = SubResource("AtlasTexture_bkcfa")
+texture_disabled = SubResource("AtlasTexture_8245r")
+stretch_mode = 0
+
+[connection signal="pressed" from="On" to="." method="_on_on_pressed"]
+[connection signal="pressed" from="Off" to="." method="_on_off_pressed"]

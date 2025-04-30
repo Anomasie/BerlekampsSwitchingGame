@@ -1,0 +1,22 @@
+[gd_scene load_steps=5 format=3 uid="uid://cgju6l8fd13oc"]
+
+[ext_resource type="Texture2D" uid="uid://d2s15sb05fjvi" path="res://assets/Lamps.png" id="1_88ihc"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o7xp8"]
+atlas = ExtResource("1_88ihc")
+region = Rect2(0, 40, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_prsmg"]
+atlas = ExtResource("1_88ihc")
+region = Rect2(32, 40, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qscmg"]
+atlas = ExtResource("1_88ihc")
+region = Rect2(16, 40, 16, 16)
+
+[node name="BigSwitch" type="TextureButton"]
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture_normal = SubResource("AtlasTexture_o7xp8")
+texture_pressed = SubResource("AtlasTexture_prsmg")
+texture_hover = SubResource("AtlasTexture_qscmg")

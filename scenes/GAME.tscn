@@ -1,0 +1,67 @@
+[gd_scene load_steps=5 format=3 uid="uid://cdjxr581slet0"]
+
+[ext_resource type="PackedScene" uid="uid://dbm7mpbjw1xb8" path="res://scenes/GameField.tscn" id="1_7ytnu"]
+[ext_resource type="Script" path="res://scenes/GAME.gd" id="1_ocxpb"]
+[ext_resource type="PackedScene" uid="uid://cgju6l8fd13oc" path="res://scenes/buttons/BigSwitch.tscn" id="2_j1tic"]
+[ext_resource type="Texture2D" uid="uid://wuqcc4sxkpte" path="res://assets/Theme/Panels.png" id="3_k43ql"]
+
+[node name="GAME" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ocxpb")
+BigSwitchScene = ExtResource("2_j1tic")
+
+[node name="Screen" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Title" type="Label" parent="Screen"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+text = "Berlecamp's Switching Game"
+
+[node name="Game" type="MarginContainer" parent="Screen"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Background" type="NinePatchRect" parent="Screen/Game"]
+layout_mode = 2
+texture = ExtResource("3_k43ql")
+region_rect = Rect2(0, 0, 16, 16)
+patch_margin_left = 3
+patch_margin_top = 3
+patch_margin_right = 3
+patch_margin_bottom = 3
+
+[node name="Margin" type="MarginContainer" parent="Screen/Game"]
+layout_mode = 2
+
+[node name="Grid" type="GridContainer" parent="Screen/Game/Margin"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/h_separation = 32
+theme_override_constants/v_separation = 32
+columns = 2
+
+[node name="GameField" parent="Screen/Game/Margin/Grid" instance=ExtResource("1_7ytnu")]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+columns = 10
+
+[node name="Columns" type="VBoxContainer" parent="Screen/Game/Margin/Grid"]
+layout_mode = 2
+
+[node name="Lines" type="HBoxContainer" parent="Screen/Game/Margin/Grid"]
+layout_mode = 2
