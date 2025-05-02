@@ -13,19 +13,53 @@ extends Control
 @onready var SizeY = $Screen/NewGame/MainMenu/Margin/Lines/Lines/YEdit
 @onready var SubmitButton = $Screen/SubmitButton
 
-var playing_as_first_player = true
+enum modi {FIRST_PLAYER, SECOND_PLAYER, MULTIPLAYER, CREATIVE}
+
+var current_modus = 0
+var current_stage = 0
 
 func _ready() -> void:
 	start_game()
 
-func start_game(first_player = playing_as_first_player) -> void:
-	playing_as_first_player = first_player
+func start_game(modus = current_modus) -> void:
+	current_modus = modus
 	set_field(Vector2i(SizeX.value, SizeY.value))
 	update_score()
-	if first_player:
-		GameField.empty_field()
-	else:
-		GameField.random_field()
+	match current_modus:
+		modi.FIRST_PLAYER:
+			GameField.empty_field()
+			set_individual_lamps_disabled(false)
+			set_current_stage(0)
+			SubmitButton.show()
+		modi.SECOND_PLAYER:
+			GameField.random_field()
+			set_individual_lamps_disabled(true)
+			set_current_stage(1)
+			SubmitButton.show()
+		modi.MULTIPLAYER:
+			GameField.empty_field()
+			set_individual_lamps_disabled(false)
+			set_current_stage(0)
+			SubmitButton.show()
+		modi.CREATIVE:
+			GameField.random_field()
+			set_individual_lamps_disabled(false)
+			set_current_stage(0)
+			SubmitButton.hide()
+
+func set_current_stage(stage = current_stage) -> void:
+	match stage:
+		0:
+			set_individual_lamps_disabled(false)
+		1:
+			set_individual_lamps_disabled(true)
+			if modi.FIRST_PLAYER:
+				print("evaluate!")
+		_:
+			print("evaluate!")
+
+func set_individual_lamps_disabled(value) -> void:
+	GameField.set_individual_lamps_disabled(value)
 
 func set_children_number(Child, number, function) -> void:
 	# add or delete children
@@ -59,11 +93,16 @@ func _on_game_field_changed() -> void:
 	update_score()
 
 func _on_first_player_pressed() -> void:
-	start_game(true)
+	start_game(modi.FIRST_PLAYER)
 
 func _on_second_player_pressed() -> void:
-	start_game(false)
+	start_game(modi.SECOND_PLAYER)
 
+func _on_two_player_pressed() -> void:
+	start_game(modi.MULTIPLAYER)
+
+func _on_creative_pressed() -> void:
+	start_game(modi.CREATIVE)
 
 func _on_submit_button_pressed() -> void:
-	print("submitted!")
+	set_current_stage(current_stage+1)

@@ -52,6 +52,10 @@ func set_texture_angles():
 	Off.texture_pressed.region = Rect2(2*distance.x, anchor_off, distance.x, distance.y)
 	Off.texture_disabled.region  = Rect2(3*distance.x, anchor_off, distance.x, distance.y)
 
+func set_disabled(value) -> void:
+	On.disabled = value
+	Off.disabled = value
+
 func switch_value() -> void:
 	set_value(not on)
 
@@ -60,7 +64,7 @@ func set_value(val=on) -> void:
 	Off.visible = val
 	on = val
 
-func set_disabled(val) -> void:
+func set_buttons_disabled(val) -> void:
 	On.disabled = val
 	Off.disabled = val
 

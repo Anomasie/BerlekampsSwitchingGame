@@ -6,16 +6,20 @@ signal changed
 @export var field_size = Vector2i(10,10)
 @export var LampButton : PackedScene
 
-func _ready():
+func _ready() -> void:
 	set_field()
 
-func get_score():
+func get_score() -> int:
 	var sum = 0
 	for Child in self.get_children():
 		sum += int(Child.on)
 	return sum
 
-func set_field(new_size=field_size):
+func set_individual_lamps_disabled(value) -> void:
+	for Child in self.get_children():
+		Child.set_buttons_disabled(value)
+
+func set_field(new_size=field_size) -> void:
 	field_size = new_size
 	self.columns = new_size.x
 	# add or delete children
@@ -37,15 +41,15 @@ func random_field() -> void:
 	for Child in self.get_children():
 		Child.set_value(randf() < 0.5)
 
-func switch_column(i):
+func switch_column(i) -> void:
 	for j in field_size.y:
 		self.get_child(i*field_size.x + j).switch_value()
 	changed.emit()
 
-func switch_line(i):
+func switch_line(i) -> void:
 	for j in field_size.x:
 		self.get_child(i + field_size.x*j).switch_value()
 	changed.emit()
 
-func _on_lamp_pressed():
+func _on_lamp_pressed() -> void:
 	changed.emit()
