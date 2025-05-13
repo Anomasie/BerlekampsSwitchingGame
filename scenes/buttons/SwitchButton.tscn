@@ -1,6 +1,6 @@
 [gd_scene load_steps=13 format=3 uid="uid://duebklrl317w2"]
 
-[ext_resource type="Script" path="res://scenes/buttons/SwitchButton.gd" id="1_5o6jp"]
+[ext_resource type="Script" uid="uid://b7py1volf620g" path="res://scenes/buttons/SwitchButton.gd" id="1_5o6jp"]
 [ext_resource type="Texture2D" uid="uid://d2s15sb05fjvi" path="res://assets/Lamps.png" id="1_y6bxk"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8gx23"]
@@ -11,35 +11,35 @@ region = Rect2(0, 0, 16, 20)
 atlas = ExtResource("1_y6bxk")
 region = Rect2(0, 20, 16, 20)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_bif0n"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_kyhuu"]
 atlas = ExtResource("1_y6bxk")
 region = Rect2(0, 20, 16, 20)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_350y6"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_8y83i"]
 atlas = ExtResource("1_y6bxk")
 region = Rect2(32, 20, 16, 20)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_ick24"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_lis3u"]
 atlas = ExtResource("1_y6bxk")
 region = Rect2(16, 20, 16, 20)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_afwe4"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_7v2yk"]
 atlas = ExtResource("1_y6bxk")
 region = Rect2(48, 20, 16, 20)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_ts8aq"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_1fa6w"]
 atlas = ExtResource("1_y6bxk")
 region = Rect2(0, 0, 16, 20)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_rom8h"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_0bslr"]
 atlas = ExtResource("1_y6bxk")
 region = Rect2(32, 0, 16, 20)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_h1c5o"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_h24ws"]
 atlas = ExtResource("1_y6bxk")
 region = Rect2(16, 0, 16, 20)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_t55j1"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_47wmx"]
 atlas = ExtResource("1_y6bxk")
 region = Rect2(48, 0, 16, 20)
 
@@ -61,19 +61,19 @@ tex_off = SubResource("AtlasTexture_pfxoo")
 
 [node name="On" type="TextureButton" parent="."]
 layout_mode = 2
-texture_normal = SubResource("AtlasTexture_bif0n")
-texture_pressed = SubResource("AtlasTexture_350y6")
-texture_hover = SubResource("AtlasTexture_ick24")
-texture_disabled = SubResource("AtlasTexture_afwe4")
+texture_normal = SubResource("AtlasTexture_kyhuu")
+texture_pressed = SubResource("AtlasTexture_8y83i")
+texture_hover = SubResource("AtlasTexture_lis3u")
+texture_disabled = SubResource("AtlasTexture_7v2yk")
 stretch_mode = 0
 
 [node name="Off" type="TextureButton" parent="."]
 visible = false
 layout_mode = 2
-texture_normal = SubResource("AtlasTexture_ts8aq")
-texture_pressed = SubResource("AtlasTexture_rom8h")
-texture_hover = SubResource("AtlasTexture_h1c5o")
-texture_disabled = SubResource("AtlasTexture_t55j1")
+texture_normal = SubResource("AtlasTexture_1fa6w")
+texture_pressed = SubResource("AtlasTexture_0bslr")
+texture_hover = SubResource("AtlasTexture_h24ws")
+texture_disabled = SubResource("AtlasTexture_47wmx")
 stretch_mode = 0
 
 [connection signal="pressed" from="On" to="." method="_on_on_pressed"]

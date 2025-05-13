@@ -15,6 +15,10 @@ func get_score() -> int:
 		sum += int(Child.on)
 	return sum
 
+func get_winner() -> int:
+	var score = get_score()
+	return int(score >= field_size.x * field_size.y / 2)
+
 func set_individual_lamps_disabled(value) -> void:
 	for Child in self.get_children():
 		Child.set_buttons_disabled(value)
@@ -41,15 +45,32 @@ func random_field() -> void:
 	for Child in self.get_children():
 		Child.set_value(randf() < 0.5)
 
+func switch_all() -> void:
+	for i in field_size.x:
+		switch_column(i)
+	changed.emit()
+
 func switch_column(i) -> void:
 	for j in field_size.y:
-		self.get_child(i*field_size.x + j).switch_value()
+		self.get_child(j*field_size.x + i).switch_value()
 	changed.emit()
 
 func switch_line(i) -> void:
 	for j in field_size.x:
-		self.get_child(i + field_size.x*j).switch_value()
+		self.get_child(i*field_size.x + j).switch_value()
 	changed.emit()
+
+func random_player_two() -> void:
+	for i in field_size.x:
+		if randf() < 0.5:
+			switch_column(i)
+	for j in field_size.y:
+		if randf() < 0.5:
+			switch_line(j)
+	if get_score() < 0.5 * field_size.x * field_size.y:
+		switch_all()
+
+# signals
 
 func _on_lamp_pressed() -> void:
 	changed.emit()

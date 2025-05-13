@@ -1,7 +1,7 @@
-[gd_scene load_steps=9 format=3 uid="uid://cdjxr581slet0"]
+[gd_scene load_steps=11 format=3 uid="uid://cdjxr581slet0"]
 
 [ext_resource type="PackedScene" uid="uid://dbm7mpbjw1xb8" path="res://scenes/GameField.tscn" id="1_7ytnu"]
-[ext_resource type="Script" path="res://scenes/GAME.gd" id="1_ocxpb"]
+[ext_resource type="Script" uid="uid://dva3ltc3yjn6v" path="res://scenes/GAME.gd" id="1_ocxpb"]
 [ext_resource type="PackedScene" uid="uid://cgju6l8fd13oc" path="res://scenes/buttons/BigSwitch.tscn" id="2_j1tic"]
 [ext_resource type="Texture2D" uid="uid://wuqcc4sxkpte" path="res://assets/Theme/Panels.png" id="3_k43ql"]
 [ext_resource type="Texture2D" uid="uid://d2s15sb05fjvi" path="res://assets/Lamps.png" id="5_jyrtt"]
@@ -16,6 +16,13 @@ region = Rect2(64, 0, 16, 20)
 [sub_resource type="AtlasTexture" id="AtlasTexture_grpnn"]
 atlas = ExtResource("5_jyrtt")
 region = Rect2(64, 20, 16, 20)
+
+[sub_resource type="Gradient" id="Gradient_w1lns"]
+offsets = PackedFloat32Array(1)
+colors = PackedColorArray(1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_ge2na"]
+gradient = SubResource("Gradient_w1lns")
 
 [node name="GAME" type="Control"]
 layout_mode = 3
@@ -71,10 +78,13 @@ layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="Columns" type="VBoxContainer" parent="Screen/Game/Margin/Grid"]
+[node name="Lines" type="VBoxContainer" parent="Screen/Game/Margin/Grid"]
 layout_mode = 2
 
-[node name="Lines" type="HBoxContainer" parent="Screen/Game/Margin/Grid"]
+[node name="Columns" type="HBoxContainer" parent="Screen/Game/Margin/Grid"]
+layout_mode = 2
+
+[node name="BigSwitch" parent="Screen/Game/Margin/Grid" instance=ExtResource("2_j1tic")]
 layout_mode = 2
 
 [node name="CurrentGame" type="VBoxContainer" parent="Screen"]
@@ -140,17 +150,68 @@ patch_margin_bottom = 3
 [node name="Margin" type="MarginContainer" parent="Screen/CurrentGame/Rules"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="Screen/CurrentGame/Rules/Margin"]
+[node name="Lines" type="VBoxContainer" parent="Screen/CurrentGame/Rules/Margin"]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="Screen/CurrentGame/Rules/Margin/Lines"]
 custom_minimum_size = Vector2(1, 1)
 layout_mode = 2
 size_flags_vertical = 0
-text = "Here are the rules. 
-They are not very long. At least I hope so."
+text = "Rules"
+autowrap_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="Screen/CurrentGame/Rules/Margin/Lines"]
+custom_minimum_size = Vector2(0, 1)
+layout_mode = 2
+texture = SubResource("GradientTexture1D_ge2na")
+
+[node name="Rules" type="Label" parent="Screen/CurrentGame/Rules/Margin/Lines"]
+custom_minimum_size = Vector2(256, 0)
+layout_mode = 2
+text = "The first Player can switch every light on or off. The second can only use the row-and-columns-switches, which switch the whole row or column at once.
+
+The first player tries to maximize the number of burning lights, while the second player tries to minimize them."
 autowrap_mode = 2
 
 [node name="NewGame" type="VBoxContainer" parent="Screen"]
 layout_mode = 2
 size_flags_horizontal = 8
+
+[node name="PlayerMenu" type="MarginContainer" parent="Screen/NewGame"]
+layout_mode = 2
+
+[node name="Background" type="NinePatchRect" parent="Screen/NewGame/PlayerMenu"]
+layout_mode = 2
+texture = ExtResource("3_k43ql")
+region_rect = Rect2(0, 0, 16, 16)
+patch_margin_left = 3
+patch_margin_top = 3
+patch_margin_right = 3
+patch_margin_bottom = 3
+
+[node name="Margin" type="MarginContainer" parent="Screen/NewGame/PlayerMenu"]
+layout_mode = 2
+
+[node name="Lines" type="VBoxContainer" parent="Screen/NewGame/PlayerMenu/Margin"]
+layout_mode = 2
+
+[node name="CurrentPlayer" type="Label" parent="Screen/NewGame/PlayerMenu/Margin/Lines"]
+custom_minimum_size = Vector2(1, 1)
+layout_mode = 2
+size_flags_vertical = 0
+text = "Current Player:"
+autowrap_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="Screen/NewGame/PlayerMenu/Margin/Lines"]
+custom_minimum_size = Vector2(0, 1)
+layout_mode = 2
+texture = SubResource("GradientTexture1D_ge2na")
+
+[node name="SubmitButton" type="Button" parent="Screen/NewGame/PlayerMenu/Margin/Lines"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+text = "Ready"
 
 [node name="MainMenu" type="MarginContainer" parent="Screen/NewGame"]
 layout_mode = 2
@@ -196,8 +257,8 @@ layout_mode = 2
 
 [node name="Label" type="Label" parent="Screen/NewGame/MainMenu/Margin/Lines/Lines"]
 layout_mode = 2
-text = "Field size
-next game:"
+text = "Field size next game:"
+autowrap_mode = 2
 
 [node name="XEdit" type="SpinBox" parent="Screen/NewGame/MainMenu/Margin/Lines/Lines"]
 layout_mode = 2
@@ -211,15 +272,10 @@ min_value = 1.0
 max_value = 20.0
 value = 10.0
 
-[node name="SubmitButton" type="Button" parent="Screen"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 8
-text = "Ready"
-
 [connection signal="changed" from="Screen/Game/Margin/Grid/GameField" to="." method="_on_game_field_changed"]
+[connection signal="pressed" from="Screen/Game/Margin/Grid/BigSwitch" to="." method="_on_big_switch_pressed"]
+[connection signal="pressed" from="Screen/NewGame/PlayerMenu/Margin/Lines/SubmitButton" to="." method="_on_submit_button_pressed"]
 [connection signal="pressed" from="Screen/NewGame/MainMenu/Margin/Lines/FirstPlayer" to="." method="_on_first_player_pressed"]
 [connection signal="pressed" from="Screen/NewGame/MainMenu/Margin/Lines/SecondPlayer" to="." method="_on_second_player_pressed"]
 [connection signal="pressed" from="Screen/NewGame/MainMenu/Margin/Lines/TwoPlayer" to="." method="_on_two_player_pressed"]
 [connection signal="pressed" from="Screen/NewGame/MainMenu/Margin/Lines/Creative" to="." method="_on_creative_pressed"]
-[connection signal="pressed" from="Screen/SubmitButton" to="." method="_on_submit_button_pressed"]
