@@ -1,13 +1,30 @@
-[gd_scene load_steps=11 format=3 uid="uid://cdjxr581slet0"]
+[gd_scene load_steps=16 format=3 uid="uid://cdjxr581slet0"]
 
 [ext_resource type="PackedScene" uid="uid://dbm7mpbjw1xb8" path="res://scenes/GameField.tscn" id="1_7ytnu"]
 [ext_resource type="Script" uid="uid://dva3ltc3yjn6v" path="res://scenes/GAME.gd" id="1_ocxpb"]
 [ext_resource type="PackedScene" uid="uid://cgju6l8fd13oc" path="res://scenes/buttons/BigSwitch.tscn" id="2_j1tic"]
 [ext_resource type="Texture2D" uid="uid://wuqcc4sxkpte" path="res://assets/Theme/Panels.png" id="3_k43ql"]
+[ext_resource type="Texture2D" uid="uid://ckt13hbbcpwb6" path="res://assets/Buttons/ToolButtons.png" id="4_ge2na"]
 [ext_resource type="Texture2D" uid="uid://d2s15sb05fjvi" path="res://assets/Lamps.png" id="5_jyrtt"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_r7uvp"]
 load_path = "res://.godot/imported/Panels.png-bfe1bc1a7a85a61e61dba94a609e0570.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oc3sy"]
+atlas = ExtResource("4_ge2na")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ge2na"]
+atlas = ExtResource("4_ge2na")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_af4lh"]
+atlas = ExtResource("4_ge2na")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vgwm7"]
+atlas = ExtResource("4_ge2na")
+region = Rect2(96, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0qwvu"]
 atlas = ExtResource("5_jyrtt")
@@ -48,12 +65,21 @@ size_flags_horizontal = 4
 size_flags_vertical = 0
 text = "Berlecamp's Switching Game"
 
-[node name="Game" type="MarginContainer" parent="Screen"]
+[node name="Center" type="VBoxContainer" parent="Screen"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="Background" type="NinePatchRect" parent="Screen/Game"]
+[node name="Game" type="MarginContainer" parent="Screen/Center"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 0
+theme_override_constants/margin_bottom = 0
+
+[node name="Background" type="NinePatchRect" parent="Screen/Center/Game"]
 layout_mode = 2
 texture = SubResource("CompressedTexture2D_r7uvp")
 region_rect = Rect2(16, 0, 16, 16)
@@ -62,10 +88,10 @@ patch_margin_top = 3
 patch_margin_right = 3
 patch_margin_bottom = 3
 
-[node name="Margin" type="MarginContainer" parent="Screen/Game"]
+[node name="Margin" type="MarginContainer" parent="Screen/Center/Game"]
 layout_mode = 2
 
-[node name="Grid" type="GridContainer" parent="Screen/Game/Margin"]
+[node name="Grid" type="GridContainer" parent="Screen/Center/Game/Margin"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -73,19 +99,65 @@ theme_override_constants/h_separation = 32
 theme_override_constants/v_separation = 32
 columns = 2
 
-[node name="GameField" parent="Screen/Game/Margin/Grid" instance=ExtResource("1_7ytnu")]
+[node name="GameField" parent="Screen/Center/Game/Margin/Grid" instance=ExtResource("1_7ytnu")]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="Lines" type="VBoxContainer" parent="Screen/Game/Margin/Grid"]
+[node name="Lines" type="VBoxContainer" parent="Screen/Center/Game/Margin/Grid"]
 layout_mode = 2
 
-[node name="Columns" type="HBoxContainer" parent="Screen/Game/Margin/Grid"]
+[node name="Columns" type="HBoxContainer" parent="Screen/Center/Game/Margin/Grid"]
 layout_mode = 2
 
-[node name="BigSwitch" parent="Screen/Game/Margin/Grid" instance=ExtResource("2_j1tic")]
+[node name="BigSwitch" parent="Screen/Center/Game/Margin/Grid" instance=ExtResource("2_j1tic")]
 layout_mode = 2
+
+[node name="Tools" type="MarginContainer" parent="Screen/Center"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 0
+theme_override_constants/margin_bottom = 0
+
+[node name="Background" type="NinePatchRect" parent="Screen/Center/Tools"]
+layout_mode = 2
+texture = SubResource("CompressedTexture2D_r7uvp")
+region_rect = Rect2(16, 0, 16, 16)
+patch_margin_left = 3
+patch_margin_top = 3
+patch_margin_right = 3
+patch_margin_bottom = 3
+
+[node name="Margin" type="MarginContainer" parent="Screen/Center/Tools"]
+layout_mode = 2
+
+[node name="Lines" type="HBoxContainer" parent="Screen/Center/Tools/Margin"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Random" type="TextureButton" parent="Screen/Center/Tools/Margin/Lines"]
+layout_mode = 2
+texture_normal = SubResource("AtlasTexture_oc3sy")
+texture_pressed = SubResource("AtlasTexture_ge2na")
+texture_hover = SubResource("AtlasTexture_af4lh")
+texture_disabled = SubResource("AtlasTexture_vgwm7")
+
+[node name="RandomCol" type="TextureButton" parent="Screen/Center/Tools/Margin/Lines"]
+layout_mode = 2
+texture_normal = SubResource("AtlasTexture_oc3sy")
+texture_pressed = SubResource("AtlasTexture_ge2na")
+texture_hover = SubResource("AtlasTexture_af4lh")
+texture_disabled = SubResource("AtlasTexture_vgwm7")
+
+[node name="RandomLine" type="TextureButton" parent="Screen/Center/Tools/Margin/Lines"]
+layout_mode = 2
+texture_normal = SubResource("AtlasTexture_oc3sy")
+texture_pressed = SubResource("AtlasTexture_ge2na")
+texture_hover = SubResource("AtlasTexture_af4lh")
+texture_disabled = SubResource("AtlasTexture_vgwm7")
 
 [node name="CurrentGame" type="VBoxContainer" parent="Screen"]
 layout_mode = 2
@@ -195,6 +267,10 @@ layout_mode = 2
 [node name="Lines" type="VBoxContainer" parent="Screen/NewGame/PlayerMenu/Margin"]
 layout_mode = 2
 
+[node name="CurrentMode" type="Label" parent="Screen/NewGame/PlayerMenu/Margin/Lines"]
+layout_mode = 2
+text = "Current Mode:"
+
 [node name="CurrentPlayer" type="Label" parent="Screen/NewGame/PlayerMenu/Margin/Lines"]
 custom_minimum_size = Vector2(1, 1)
 layout_mode = 2
@@ -272,8 +348,11 @@ min_value = 1.0
 max_value = 20.0
 value = 10.0
 
-[connection signal="changed" from="Screen/Game/Margin/Grid/GameField" to="." method="_on_game_field_changed"]
-[connection signal="pressed" from="Screen/Game/Margin/Grid/BigSwitch" to="." method="_on_big_switch_pressed"]
+[connection signal="changed" from="Screen/Center/Game/Margin/Grid/GameField" to="." method="_on_game_field_changed"]
+[connection signal="pressed" from="Screen/Center/Game/Margin/Grid/BigSwitch" to="." method="_on_big_switch_pressed"]
+[connection signal="pressed" from="Screen/Center/Tools/Margin/Lines/Random" to="." method="_on_random_pressed"]
+[connection signal="pressed" from="Screen/Center/Tools/Margin/Lines/RandomCol" to="." method="_on_random_col_pressed"]
+[connection signal="pressed" from="Screen/Center/Tools/Margin/Lines/RandomLine" to="." method="_on_random_line_pressed"]
 [connection signal="pressed" from="Screen/NewGame/PlayerMenu/Margin/Lines/SubmitButton" to="." method="_on_submit_button_pressed"]
 [connection signal="pressed" from="Screen/NewGame/MainMenu/Margin/Lines/FirstPlayer" to="." method="_on_first_player_pressed"]
 [connection signal="pressed" from="Screen/NewGame/MainMenu/Margin/Lines/SecondPlayer" to="." method="_on_second_player_pressed"]

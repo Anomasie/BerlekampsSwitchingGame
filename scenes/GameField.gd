@@ -60,13 +60,19 @@ func switch_line(i) -> void:
 		self.get_child(i*field_size.x + j).switch_value()
 	changed.emit()
 
-func random_player_two() -> void:
+func switch_columns_random() -> void:
 	for i in field_size.x:
 		if randf() < 0.5:
 			switch_column(i)
+
+func switch_lines_random() -> void:
 	for j in field_size.y:
 		if randf() < 0.5:
 			switch_line(j)
+
+func random_player_two() -> void:
+	switch_columns_random()
+	switch_lines_random()
 	if get_score() < 0.5 * field_size.x * field_size.y:
 		switch_all()
 
